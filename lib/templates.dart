@@ -1,18 +1,9 @@
 part of animated_native_splash_supported_platform;
 
 // Android-related templates
+/// Below is genric template we inject to our project folders
 
-/// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [Andriod color.xml] template >>>>>>>>>>>>>>>>>>>>>>>
-const String _androidColorsXml = '''
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="splash_color">#2196F3</color>
-</resources>
-''';
-
-
-
-/// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [Andriod SplashView.xml] template >>>>>>>>>>>>>>>>>>>>>>>
+///[Andriod SplashView.xml]
 const String _androidSplashViewXml = '''
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,7 +25,7 @@ const String _androidSplashViewXml = '''
 </androidx.constraintlayout.widget.ConstraintLayout>
 ''';
 
-/// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [Andriod MainActivity.kt] template >>>>>>>>>>>>>>>>>>>>>>>
+///[Andriod MainActivity.kt]
 String _androidMainActivity(String domain) => '''
 package $domain
 
@@ -48,8 +39,8 @@ override fun provideSplashScreen(): SplashScreen? = SplashView()
 
 ''';
 
-/// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [Andriod Mainfest.xml] template >>>>>>>>>>>>>>>>>>>>>>>
-String _androidNewMainMinfest(String domain) => '''
+///[Andriod Mainfest.xml]
+String _androidNewMainMinfest(String domain,String projectname) => '''
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="$domain">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -59,12 +50,12 @@ String _androidNewMainMinfest(String domain) => '''
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_lottie_splash_app"
+        android:label="$projectname"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
-            android:theme="@style/NormalTheme"
+            android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
@@ -90,7 +81,7 @@ String _androidNewMainMinfest(String domain) => '''
 </manifest>
 ''';
 
-/// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [Andriod SplashView.kt] template >>>>>>>>>>>>>>>>>>>>>>>
+///[Andriod SplashView.kt]
 String _anroidSplashView(domain) => '''
 package $domain
 

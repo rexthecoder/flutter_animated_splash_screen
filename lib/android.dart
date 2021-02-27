@@ -1,10 +1,10 @@
 part of animated_native_splash_supported_platform;
 
 /// Create Android splash screen
+///
+/// This use for creating all the nesscery file needed to inject inside our android project
 Future<void> _createAndroidSplash({
-   String jsonPath,
-   String color,
-   String darkColor,
+  String jsonPath,
 }) async {
   if (jsonPath.isNotEmpty) {
     _updategradleFile(File(_androidGradleFile));
@@ -13,47 +13,29 @@ Future<void> _createAndroidSplash({
     await deletingAndroidMenifest();
   }
 
-  await _applyColor(color: color, colorFile: _androidColorsFile);
   await _modifyManifestFolder();
-  await _overwriteLaunchBackgroundWithNewSplashColor(
-      color: color, launchBackgroundFilePath: _androidLaunchBackgroundFile);
-
-  if (darkColor.isNotEmpty) {
-    await _applyColor(color: darkColor, colorFile: _androidColorsDarkFile);
-    await _overwriteLaunchBackgroundWithNewSplashColor(
-        color: color,
-        launchBackgroundFilePath: _androidLaunchDarkBackgroundFile);
-  }
 }
 
 /// Save the json file inside the raw directory
+///
+/// This helps us port our json file to the android folder
+/// Veyr useful since we want to a way to link our json file directory to the project
 Future _saveJsonFile(path) async {
   var jsonfile = File(path).readAsBytesSync();
-  print('[Android] Saving the json file insde the raw directory');
-  await File(_androidJsonPath).create(recursive: true).then((File file) {
-    file.writeAsBytesSync(jsonfile);
-  });
-}
-
-/// Create or update colors.xml adding splash screen background color
-Future<void> _applyColor({color,  String colorFile}) async {
-  var colorsXml = File(colorFile);
-  color = '#' + color;
-  if (colorsXml.existsSync()) {
-    print('[Android] Updating ' +
-        colorFile +
-        ' with color for splash screen background');
-    _updateColorsFileWithColor(colorsFile: colorsXml, color: color);
+  if (jsonfile.isEmpty) {
+    throw _NoJsonFileFoundException('No Json file has been added');
   } else {
-    print('[Android] No ' + colorFile + ' file found in your Android project');
-    print('[Android] Creating ' +
-        colorFile +
-        ' file and adding it to your Android project');
-    _createColorsFile(color: color, colorsXml: colorsXml);
+    print('[Android] Saving the json file insde the raw directory');
+    await File(_androidJsonPath).create(recursive: true).then((File file) {
+      file.writeAsBytesSync(jsonfile);
+    });
   }
 }
 
-/// updating the gradle file
+/// Updating the gradle file
+///
+///  We add the lot implementation line with the help of this function
+/// TODO: ADD MORE PROPERTIES TO ALLOW USERS SET THEIR OWN CUSTOM VALUES
 void _updategradleFile(File gradleFile) {
   final lines = gradleFile.readAsLinesSync();
   var foundExisting = false;
@@ -77,48 +59,10 @@ void _updategradleFile(File gradleFile) {
   gradleFile.writeAsStringSync(lines.join('\n'));
 }
 
-/// Updates the colors.xml with the splash screen background color
-void _updateColorsFileWithColor(
-    { File colorsFile,  String color}) {
-  final lines = colorsFile.readAsLinesSync();
-  var foundExisting = false;
-
-  for (var x = 0; x < lines.length; x++) {
-    var line = lines[x];
-
-    // Update background color if tag exists
-    if (line.contains('name="splash_color"')) {
-      foundExisting = true;
-      // replace anything between tags which does not contain another tag
-      line = line.replaceAll(RegExp(r'>([^><]*)<'), '>$color<');
-      lines[x] = line;
-      break;
-    }
-  }
-
-  // Add new line if we didn't find an existing value
-  if (!foundExisting) {
-    if (lines.isEmpty) {
-      throw _InvalidNativeFile("File 'colors.xml' contains 0 lines.");
-    } else {
-      lines.insert(
-          lines.length - 1, '\t<color name="splash_color">$color</color>');
-    }
-  }
-
-  colorsFile.writeAsStringSync(lines.join('\n'));
-}
-
-/// Creates a colors.xml file if it was missing from android/app/src/main/res/values/colors.xml
-void _createColorsFile({ String color,  File colorsXml}) {
-  colorsXml.create(recursive: true).then((File colorsFile) {
-    colorsFile.writeAsString(_androidColorsXml).then((File file) {
-      _updateColorsFileWithColor(colorsFile: colorsFile, color: color);
-    });
-  });
-}
-
-/// modifying the Android ManifestFolder
+/// Modifying the Android ManifestFolder
+///
+/// This provide a wa for us to modify and update all the mainfest file
+/// it streamline all the package injection we want to provide to our templates
 Future _modifyManifestFolder() async {
   final launchBackgroundFile = File(_androidManifestProfileFile);
   final lines = await launchBackgroundFile.readAsLines();
@@ -141,36 +85,9 @@ Future _modifyManifestFolder() async {
   await launchBackgroundFile.writeAsString(lines.join('\n'));
 }
 
-/// Updates the line which specifies the splash screen background color within the AndroidManifest.xml
-/// with the new icon name (only if it has changed)
-///
-/// Note: default color = "splash_color"
-Future _overwriteLaunchBackgroundWithNewSplashColor(
-    { String color,  String launchBackgroundFilePath}) async {
-  final launchBackgroundFile = File(_androidManifestFile);
-  final lines = await launchBackgroundFile.readAsLines();
-
-  for (var x = 0; x < lines.length; x++) {
-    var line = lines[x];
-    if (line.contains('android:theme')) {
-      // Using RegExp replace the value of android:drawable to point to the new image
-      // anything but a quote of any length: [^"]*
-      // an escaped quote: \\" (escape slash, because it exists regex)
-      // quote, no quote / quote with things behind : \"[^"]*
-      // repeat as often as wanted with no quote at start: [^"]*(\"[^"]*)*
-      // escaping the slash to place in string: [^"]*(\\"[^"]*)*"
-      // result: any string which does only include escaped quotes
-      line = line.replaceAll(RegExp(r'android:theme="[^"]*(\\"[^"]*)*"'),
-          'android:theme="@style/NormalTheme"');
-      lines[x] = line;
-      // used to stop git showing a diff if the icon name hasn't changed
-      lines.add('');
-    }
-  }
-  await launchBackgroundFile.writeAsString(lines.join('\n'));
-}
-
 /// Create the splash view template
+///
+/// This is Function help to inject our splash screen lottie setup to the project
 Future<void> _createSplashViewTemplate() async {
   final stylesFile = File(_androidSplashView);
   stylesFile.createSync(recursive: true);
@@ -179,6 +96,10 @@ Future<void> _createSplashViewTemplate() async {
 }
 
 /// Create Splash kotlin file
+///
+/// This Function is use for creating a new Splash kotlin file
+/// This class override the defualt slash screen provided by flutter
+/// By overriding which means we can assign our own splash screen now
 void createSplashKitFile(finalPattern) {
   final manifestFile = File(
       _androidSplashKitFile(finalPattern[1], finalPattern[2], finalPattern[3]));
@@ -188,7 +109,11 @@ void createSplashKitFile(finalPattern) {
       '${finalPattern[1]}.${finalPattern[2]}.${finalPattern[3]}'));
 }
 
-/// Create Main Activity File
+/// Create MainActivity File
+///
+/// This Function is  use for creating a new MainActivity file
+/// Sometimes file to give permssion in modifying the main activity file.
+/// Therefore it will be a good option to delete it.
 void createMainActivityKitFile(finalPattern) {
   final manifestFile = File(_androidMainActivityKitFile(
       finalPattern[1], finalPattern[2], finalPattern[3]));
@@ -198,22 +123,31 @@ void createMainActivityKitFile(finalPattern) {
       '${finalPattern[1]}.${finalPattern[2]}.${finalPattern[3]}'));
 }
 
-/// Create MainFest File
-void createManifest(finalPattern) {
-  final manifestFile = File(_androidMainActivityKitFile(
-      finalPattern[1], finalPattern[2], finalPattern[3]));
-  manifestFile.createSync(recursive: true);
-  print('[Android] Creating the mainfest file');
-  manifestFile.writeAsStringSync(_androidMainActivity(
-      '${finalPattern[1]}.${finalPattern[2]}.${finalPattern[3]}'));
-}
+// void createManifest(finalPattern) {
+//   final manifestFile = File(_androidMainActivityKitFile(
+//       finalPattern[1], finalPattern[2], finalPattern[3]));
+//   manifestFile.createSync(recursive: true);
+//   print('[Android] Creating the mainfest file');
+//   manifestFile.writeAsStringSync(_androidMainActivity(
+//       '${finalPattern[1]}.${finalPattern[2]}.${finalPattern[3]}'));
+// }
 
+/// Deleting the Manifest File
+///
+/// This Function is  use for deleting the Manifest file
+/// Sometimes file to give permssion in modifying the manifest folder.
+/// Therefore it will be a good option to delete it
 Future<void> deletingAndroidMenifest() async {
   final androidManifest = File(_androidManifestFile);
   print('[Android] Deleting the android manifest file');
   await androidManifest.writeAsString('');
 }
 
+/// Creating a new maifest File
+///
+/// This Function is  use for creating a new Manifest file
+/// Sometimes file to give permssion in modifying the manifest folder.
+/// Therefore it will be a good option to delete it
 void createAndroidManifest(domain) {
   final androidManifest = File(_androidManifestFile);
   androidManifest.createSync(recursive: true);
@@ -221,6 +155,7 @@ void createAndroidManifest(domain) {
   androidManifest.writeAsString(
       _androidNewMainMinfest(
         '${domain[1]}.${domain[2]}.${domain[3]}',
+        '${domain[3]}',
       ),
       mode: FileMode.write);
 }

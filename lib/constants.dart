@@ -1,13 +1,8 @@
 part of animated_native_splash_supported_platform;
 
 // Android-related constants
-const String _androidColorsFile = 'android/app/src/main/res/values/colors.xml';
-const String _androidColorsDarkFile =
-    'android/app/src/main/res/values-night/colors.xml';
-const String _androidLaunchBackgroundFile =
-    'android/app/src/main/res/drawable/launch_background.xml';
-const String _androidLaunchDarkBackgroundFile =
-    'android/app/src/main/res/drawable-night/launch_background.xml';
+/// Below is all the const path needed to inject our files and comnunicate with the android project
+///  Do not modify anything here if you don't know which path to set
 const String _androidSplashView =
     'android/app/src/main/res/layout/splash_view.xml';
 const String _androidJsonPath =

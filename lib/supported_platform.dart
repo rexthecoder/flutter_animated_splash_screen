@@ -32,29 +32,15 @@ Future<void> tryRemoveSplash() async {
 /// Function that will be called on supported platforms to create the splash screen based on a config argument.
 Future<void> tryCreateSplashByConfig(Map<String, dynamic> config) async {
   String jsonFile = config['jsonFile'] ?? '';
-  var color = _parseColor(config['color']);
-  var darkColor = _parseColor(config['color_dark']);
+
 
   if (!config.containsKey('android') || config['android']) {
     await _createAndroidSplash(
       jsonPath: jsonFile,
-      color: color,
-      darkColor: darkColor,
     );
   }
 }
 
-String _parseColor(var color) {
-  if (color is int) color = color.toString().padLeft(6, '0');
-
-  if (color is String) {
-    color = color.replaceAll('#', '').replaceAll(' ', '');
-    if (color.length == 6) return color;
-  }
-  if (color == null) return '';
-
-  throw Exception('Invalid color value');
-}
 
 /// Get config from `pubspec.yaml` or `animated_native_splash.yaml`
 Map<String, dynamic> _getConfig() {
@@ -91,17 +77,7 @@ Map<String, dynamic> _getConfig() {
     }
   }
 
-  if (!config.containsKey('color')) {
-    stderr.writeln(_InvalidConfigException(
-        'Your `animated_native_splash` section does not contain a `color`.'));
-    exit(1);
-  }
-
-  if (config.containsKey('image_dark') && !config.containsKey('color_dark')) {
-    stderr.writeln(_InvalidConfigException(
-        'Your `animated_native_splash` section contains `image_dark` but does not contain a `color_dark`.'));
-    exit(1);
-  }
+  
 
   return config;
 }

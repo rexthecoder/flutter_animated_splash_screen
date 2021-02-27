@@ -1,5 +1,6 @@
 part of animated_native_splash_supported_platform;
 
+///Expection need to through to our users, For better users experinces
 class _NoConfigFoundException implements Exception {
   const _NoConfigFoundException(this.message);
   final String message;
@@ -24,8 +25,8 @@ class _InvalidConfigException implements Exception {
   }
 }
 
-class _NoImageFileFoundException implements Exception {
-  const _NoImageFileFoundException(this.message);
+class _NoJsonFileFoundException implements Exception {
+  const _NoJsonFileFoundException(this.message);
   final String message;
 
   @override
