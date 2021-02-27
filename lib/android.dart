@@ -2,9 +2,9 @@ part of animated_native_splash_supported_platform;
 
 /// Create Android splash screen
 Future<void> _createAndroidSplash({
-  required String jsonPath,
-  required String color,
-  required String darkColor,
+   String jsonPath,
+   String color,
+   String darkColor,
 }) async {
   if (jsonPath.isNotEmpty) {
     _updategradleFile(File(_androidGradleFile));
@@ -36,7 +36,7 @@ Future _saveJsonFile(path) async {
 }
 
 /// Create or update colors.xml adding splash screen background color
-Future<void> _applyColor({color, required String colorFile}) async {
+Future<void> _applyColor({color,  String colorFile}) async {
   var colorsXml = File(colorFile);
   color = '#' + color;
   if (colorsXml.existsSync()) {
@@ -79,7 +79,7 @@ void _updategradleFile(File gradleFile) {
 
 /// Updates the colors.xml with the splash screen background color
 void _updateColorsFileWithColor(
-    {required File colorsFile, required String color}) {
+    { File colorsFile,  String color}) {
   final lines = colorsFile.readAsLinesSync();
   var foundExisting = false;
 
@@ -110,7 +110,7 @@ void _updateColorsFileWithColor(
 }
 
 /// Creates a colors.xml file if it was missing from android/app/src/main/res/values/colors.xml
-void _createColorsFile({required String color, required File colorsXml}) {
+void _createColorsFile({ String color,  File colorsXml}) {
   colorsXml.create(recursive: true).then((File colorsFile) {
     colorsFile.writeAsString(_androidColorsXml).then((File file) {
       _updateColorsFileWithColor(colorsFile: colorsFile, color: color);
@@ -146,7 +146,7 @@ Future _modifyManifestFolder() async {
 ///
 /// Note: default color = "splash_color"
 Future _overwriteLaunchBackgroundWithNewSplashColor(
-    {required String color, required String launchBackgroundFilePath}) async {
+    { String color,  String launchBackgroundFilePath}) async {
   final launchBackgroundFile = File(_androidManifestFile);
   final lines = await launchBackgroundFile.readAsLines();
 
