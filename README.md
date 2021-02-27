@@ -1,7 +1,7 @@
 # Animated Native Splash
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
-[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/) [![likes](https://badges.bar/animated_native_splash/likes)](https://pub.dev/packages/animated_native_splash/score) [![popularity](https://badges.bar/animated_native_splash/popularity)](https://pub.dev/packages/animated_native_splash/score) [![pub points](https://badges.bar/animated_native_splash/pub%20points)](https://pub.dev/packages/animated_native_splash/score)
+[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://github.com/Rexfordasamoah51/flutter_animated_splash_screen/releases/) [![likes](https://badges.bar/animated_native_splash/likes)](https://pub.dev/packages/animated_native_splash/score) [![popularity](https://badges.bar/animated_native_splash/popularity)](https://pub.dev/packages/animated_native_splash/score) [![pub points](https://badges.bar/animated_native_splash/pub%20points)](https://pub.dev/packages/animated_native_splash/score)
 
 ## Getting Started 🚀
 
