@@ -1,0 +1,19 @@
+name: animated_native_splash
+description: A new Flutter package project.
+version: 0.0.1
+homepage: https://github.com/Rexfordasamoah51/Animated_Splash_Screen
+
+environment:
+  sdk: '>=2.12.0-0 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  yaml: ^3.0.0
+  xml: ^5.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.10.0
