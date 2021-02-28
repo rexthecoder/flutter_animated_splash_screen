@@ -1,4 +1,4 @@
-/// ## Flutter Native Splash
+/// ## Animated Native Splash
 ///
 /// This is the main entry point for the Flutter Native Splash package.
 library animated_native_splash;

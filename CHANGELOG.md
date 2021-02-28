@@ -1,3 +1,15 @@
+## [1.2.1]
+
+* Update intro message
+
+## [1.2.0]
+
+* Updated Readme
+
+## [1.1.0]
+
+* Added a demo
+
 ## [1.0.0]
 
 * Added a Readme

@@ -1,23 +1,16 @@
 name: animated_native_splash
-description: A package which automates the task of creating an animated splash screen in a flutter.
-version: 1.0.0
+description: A package which automates the task of creating an animated splash
+  screen in a flutter.
+version: 1.2.1
 homepage: https://github.com/Rexfordasamoah51/flutter_animated_splash_screen
-maintainer: Rexford Asamoah 
+maintainer: Rexford Asamoah
 
 environment:
-   sdk: ">=2.7.0 <3.0.0"
-   flutter: ">=1.17.0"
+  sdk: ">=2.10.5 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  yaml: ^3.0.0
+  pedantic: ^1.9.2
   xml: ^5.0.2
+  yaml: ^3.1.0
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  pedantic: ^1.10.0
-
-flutter: 
-   uses-material-design: true
+dev_dependencies: null
