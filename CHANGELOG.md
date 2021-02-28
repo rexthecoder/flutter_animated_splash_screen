@@ -1,3 +1,9 @@
+## [1.2.3]
+
+* Updared dart sdk
+
+## [1.2.2]
+
 ## [1.2.1]
 
 * Update intro message
