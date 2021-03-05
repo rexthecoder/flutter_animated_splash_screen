@@ -11,6 +11,7 @@ Future<void> _createAndroidSplash({
     await _createSplashViewTemplate();
     await _saveJsonFile(jsonPath);
     await deletingAndroidMenifest();
+    await _deletingAndroidStyleTheme();
   }
 
   await _modifyManifestFolder();
@@ -76,6 +77,8 @@ Future _modifyManifestFolder() async {
       final finalPattern = individualPattern.trim().split('.');
       print('[Android] Creating a new manifest Folder');
       createAndroidManifest(finalPattern);
+      print('[Android] Creating a new Style Theme file');
+      _createStyleTheme();
       print('[Android] Creating splash view');
       createSplashKitFile(finalPattern);
       print('[Android] Creating a new main activity');
@@ -141,6 +144,29 @@ Future<void> deletingAndroidMenifest() async {
   final androidManifest = File(_androidManifestFile);
   print('[Android] Deleting the android manifest file');
   await androidManifest.writeAsString('');
+}
+
+/// Deleting the Andriod Style File
+///
+/// This Function is  use for deleting the Android Theme style file
+/// Sometimes the file request permssion in modifying the app folder.
+/// Therefore it will be a good option to delete it
+Future<void> _deletingAndroidStyleTheme() async {
+  final androidThemeStyle = File(_androidStyleTheme);
+  print('[Android] Deleting the android theme style file');
+  await androidThemeStyle.writeAsString('');
+}
+
+/// Creating a new AndriodStyleTheme File
+///
+/// This Function is use for creating a new Style theme file
+/// Sometimes file to give permssion in modifying the style file.
+/// Therefore it will be a good option to delete it
+void _createStyleTheme() {
+  final androidStyleTheme = File(_androidStyleTheme);
+  androidStyleTheme.createSync(recursive: true);
+  print('[Android] Creating a new manifest file');
+  androidStyleTheme.writeAsString(_androidStyle, mode: FileMode.write);
 }
 
 /// Creating a new maifest File

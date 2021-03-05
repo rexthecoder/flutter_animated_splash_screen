@@ -13,17 +13,18 @@ class _NoConfigFoundException implements Exception {
   }
 }
 
-class _InvalidConfigException implements Exception {
-  const _InvalidConfigException(this.message);
-  final String message;
+//TODO: Expection for our ios version:: Coming up
+// class _InvalidConfigException implements Exception {
+//   const _InvalidConfigException(this.message);
+//   final String message;
 
-  @override
-  String toString() {
-    return '*** ERROR [animated_native_splash] ***\n'
-        'InvalidConfigException\n'
-        '$message';
-  }
-}
+//   @override
+//   String toString() {
+//     return '*** ERROR [animated_native_splash] ***\n'
+//         'InvalidConfigException\n'
+//         '$message';
+//   }
+// }
 
 class _NoJsonFileFoundException implements Exception {
   const _NoJsonFileFoundException(this.message);

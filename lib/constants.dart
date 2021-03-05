@@ -8,6 +8,7 @@ const String _androidSplashView =
 const String _androidJsonPath =
     'android/app/src/main/res/raw/splash_screen.json';
 const String _androidManifestFile = 'android/app/src/main/AndroidManifest.xml';
+const String _androidStyleTheme = 'android/app/src/main/res/values/styles.xml';
 const String _androidGradleFile = 'android/app/build.gradle';
 const String _androidManifestProfileFile =
     'android/app/src/profile/AndroidManifest.xml';
