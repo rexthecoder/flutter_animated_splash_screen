@@ -48,7 +48,9 @@ No known issues so far.
 
 ## Demo 👀
 
-[![Demo Animated Native Splash](https://user-images.githubusercontent.com/36260221/109400541-34c39480-7941-11eb-9b58-79ae384584cf.gif){:height="10%" width="10%"}](https://user-images.githubusercontent.com/36260221/109400401-70aa2a00-7940-11eb-98dc-e19087e280eb.mp4)
 
-![Demo Animated Native Splash](https://user-images.githubusercontent.com/36260221/110107238-8be2c280-7da2-11eb-8acc-9bf4f337e0c9.gif){:height="10%" width="10%"}
 
+<img src="https://user-images.githubusercontent.com/36260221/109400541-34c39480-7941-11eb-9b58-79ae384584cf.gif" width="200" height="450">
+
+
+<img src="https://user-images.githubusercontent.com/36260221/110107238-8be2c280-7da2-11eb-8acc-9bf4f337e0c9.gif" width="200" height="450">
