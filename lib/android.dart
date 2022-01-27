@@ -4,9 +4,9 @@ part of animated_native_splash_supported_platform;
 ///
 /// This use for creating all the nesscery file needed to inject inside our android project
 Future<void> _createAndroidSplash({
-  String jsonPath,
+  String? jsonPath,
 }) async {
-  if (jsonPath.isNotEmpty) {
+  if (jsonPath!.isNotEmpty) {
     _updategradleFile(File(_androidGradleFile));
     await _createSplashViewTemplate();
     await _saveJsonFile(jsonPath);
@@ -24,7 +24,7 @@ Future<void> _createAndroidSplash({
 Future _saveJsonFile(path) async {
   var jsonfile = File(path).readAsBytesSync();
   if (jsonfile.isEmpty) {
-    throw _NoJsonFileFoundException('No Json file has been added');
+    throw const _NoJsonFileFoundException('No Json file has been added');
   } else {
     print('[Android] Saving the json file insde the raw directory');
     await File(_androidJsonPath).create(recursive: true).then((File file) {
@@ -50,11 +50,11 @@ void _updategradleFile(File gradleFile) {
   }
   if (!foundExisting) {
     if (lines.isEmpty) {
-      throw _InvalidNativeFile("File '' contains 0 lines.");
+      throw const _InvalidNativeFile("File '' contains 0 lines.");
     } else {
       print('[Android] Adding the implementation files');
       lines.insert(lines.length - 1,
-          '\nimplementation "com.airbnb.android:lottie:3.5.0"\nimplementation "com.android.support.constraint:constraint-layout:2.0.4"');
+          '\nimplementation "com.airbnb.android:lottie:3.7.0"\nimplementation "com.android.support.constraint:constraint-layout:2.0.4"');
     }
   }
   gradleFile.writeAsStringSync(lines.join('\n'));

@@ -6,11 +6,16 @@
 /// [conditional imports](https://dart.dev/guides/libraries/create-library-packages#conditionally-importing-and-exporting-library-files)
 /// to avoid losing pub points.  This library is included when the package is loaded on
 /// a supported platform, loads dart.io and the rest of the package.
+// ignore_for_file: avoid_print
+
 library animated_native_splash_supported_platform;
 
 import 'dart:io';
 
 import 'package:yaml/yaml.dart';
+// Image template
+import 'package:universal_io/io.dart';
+
 
 part 'android.dart';
 part 'constants.dart';
@@ -19,7 +24,7 @@ part 'templates.dart';
 
 /// Function that will be called on supported platforms to create the splash screens.
 Future<void> tryCreateSplash() async {
-  var config = await _getConfig();
+  var config = _getConfig();
   await tryCreateSplashByConfig(config);
 }
 
@@ -54,7 +59,7 @@ Map<String, dynamic> _getConfig() {
   final yamlString = file.readAsStringSync();
   final Map yamlMap = loadYaml(yamlString);
 
-  if (!(yamlMap['animated_native_splash'] is Map)) {
+  if (yamlMap['animated_native_splash'] is! Map) {
     stderr.writeln(_NoConfigFoundException(
         'Your `$filePath` file does not contain a `animated_native_splash` section.'));
     exit(1);
@@ -66,11 +71,11 @@ Map<String, dynamic> _getConfig() {
       in yamlMap['animated_native_splash'].entries) {
     if (entry.value is YamlList) {
       var list = <String>[];
-      (entry.value as YamlList).forEach((dynamic value) {
+      for (var value in (entry.value as YamlList)) {
         if (value is String) {
           list.add(value);
         }
-      });
+      }
       config[entry.key] = list;
     } else {
       config[entry.key] = entry.value;

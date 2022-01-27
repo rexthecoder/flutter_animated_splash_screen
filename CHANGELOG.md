@@ -1,4 +1,8 @@
-## [1.2.3]
+## 1.2.4
+
+* Fix a double splash issue
+
+# [1.2.3]
 
 * Updared dart sdk
 
