@@ -17,7 +17,7 @@ String _androidSplashKitFile(String domain, String company, String appname) =>
 String _androidMainActivityKitFile(
         String domain, String company, String appname) =>
     'android/app/src/main/kotlin/$domain/$company/$appname/MainActivity.kt';
-
+String applicationName = '\${applicationName}';
 String introMessage(String currentVersion) => '''
   ════════════════════════════════════════════
      ANIMATED NATIVE SPLASH (v$currentVersion)

@@ -40,21 +40,20 @@ override fun provideSplashScreen(): SplashScreen? = SplashView()
 ''';
 
 ///[Andriod Mainfest.xml]
-String _androidNewMainMinfest(String domain,String projectname) => '''
+String _androidNewMainMinfest(
+  String domain,
+  String projectname,
+) =>
+    '''
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="$domain">
-    <!-- io.flutter.app.FlutterApplication is an android.app.Application that
-         calls FlutterMain.startInitialization(this); in its onCreate method.
-         In most cases you can leave this as-is, but you if you want to provide
-         additional functionality it is fine to subclass or reimplement
-         FlutterApplication and put your custom class here. -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <application
-        android:name="io.flutter.app.FlutterApplication"
+   <application
         android:label="$projectname"
+        android:name="$applicationName"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -103,8 +102,7 @@ class SplashView : SplashScreen {
 ''';
 
 ///[Andriod style]
-String _androidStyle = 
-'''
+String _androidStyle = '''
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Theme applied to the Android Window as soon as the process has started.

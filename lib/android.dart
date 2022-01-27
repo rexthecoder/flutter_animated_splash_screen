@@ -54,7 +54,7 @@ void _updategradleFile(File gradleFile) {
     } else {
       print('[Android] Adding the implementation files');
       lines.insert(lines.length - 1,
-          '\nimplementation "com.airbnb.android:lottie:3.7.0"\nimplementation "com.android.support.constraint:constraint-layout:2.0.4"');
+          '\nimplementation "com.airbnb.android:lottie:4.2.2"\nimplementation "com.android.support.constraint:constraint-layout:2.0.4"');
     }
   }
   gradleFile.writeAsStringSync(lines.join('\n'));
