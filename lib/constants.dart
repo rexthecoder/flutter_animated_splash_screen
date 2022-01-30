@@ -27,8 +27,6 @@ String introMessage(String currentVersion) =>
 
 ///Web
 const String _webFolder = 'web/';
-const String _webSplashFolder = _webFolder + 'splash/';
-const String _webSplashImagesFolder = _webSplashFolder + 'img/';
 const String _webIndex = _webFolder + 'index.html';
 const String _webRelativeStyleFile = 'web/splash/style.css';
 const String _url = '\$FLUTTER_BASE_HREF';
