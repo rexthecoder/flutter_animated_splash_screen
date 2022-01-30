@@ -21,7 +21,7 @@ String applicationName = '\${applicationName}';
 String introMessage(String currentVersion) =>
     '''
   ════════════════════════════════════════════
-     ANIMATED NATIVE SPLASH (v$currentVersion)
+   🎈ANIMATED NATIVE SPLASH (v$currentVersion)
   ════════════════════════════════════════════
   ''';
 
