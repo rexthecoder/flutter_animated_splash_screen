@@ -56,5 +56,6 @@ No known issues so far.
 
 <img src="https://user-images.githubusercontent.com/36260221/151686035-c6893bd0-38a6-48d1-bfb7-9593724048d1.gif" >  
 
+### Mobile
 
-<img src="https://user-images.githubusercontent.com/36260221/110107238-8be2c280-7da2-11eb-8acc-9bf4f337e0c9.gif" width="200" height="450">
+<img src="https://user-images.githubusercontent.com/36260221/151686212-4926a2f7-a819-4124-a470-43a5c4478a0c.gif" width="200" height="450">
