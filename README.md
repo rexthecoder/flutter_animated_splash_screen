@@ -52,4 +52,5 @@ No known issues so far.
 
 ## Demo 👀
 
-<img src="https://user-images.githubusercontent.com/36260221/109400541-34c39480-7941-11eb-9b58-79ae384584cf.gif" width="200" height="450">  <img src="https://user-images.githubusercontent.com/36260221/110107238-8be2c280-7da2-11eb-8acc-9bf4f337e0c9.gif" width="200" height="450">
+**Web**
+<img src="https://user-images.githubusercontent.com/36260221/151685983-7d96f800-2079-4dc6-8ff4-027b483a7120.MP4" width="200" height="450">  <img src="https://user-images.githubusercontent.com/36260221/110107238-8be2c280-7da2-11eb-8acc-9bf4f337e0c9.gif" width="200" height="450">

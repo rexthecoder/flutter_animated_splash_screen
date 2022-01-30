@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
+  Future.delayed(const Duration(seconds: 40));
   runApp(const MyApp());
 }
 

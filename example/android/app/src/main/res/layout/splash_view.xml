@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/splash_screen"
-        app:lottie_loop="false"
+        app:lottie_loop="true"
         app:lottie_speed="1.00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
