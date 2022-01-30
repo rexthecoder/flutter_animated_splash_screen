@@ -179,7 +179,7 @@ String _style = '''
 
 ''';
 
-String indexTemplate({String? projectName,String? path}) => '''
+String indexTemplate({String? projectName}) => '''
 <!DOCTYPE html>
 <html>
   <head>
@@ -220,7 +220,7 @@ String indexTemplate({String? projectName,String? path}) => '''
       <div class="animation">
         <div class="player">
           <lottie-player
-            src="$path"
+            src="splash/splash.json"
             background="transparent"
             speed="1"
             style="width: 400px; height: 400px"

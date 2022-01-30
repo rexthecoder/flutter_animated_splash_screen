@@ -4,6 +4,7 @@ Future<void> _createWebSplash({String? path}) async {
   if (path!.isNotEmpty) {
     await _deleteWebFile();
     await _createStylesheet();
+    await _saveWebJsonFile(path);
     await _createIndex(path);
   }
 }
@@ -42,6 +43,24 @@ Future<void> _createIndex(path) async {
   index.createSync(recursive: true);
   print('[Web] Creating the Index file.');
   index.writeAsStringSync(
-    indexTemplate(projectName: _projectName, path: path),
+    indexTemplate(
+      projectName: _projectName,
+    ),
   );
+}
+
+/// Save the json file inside the raw directory
+///
+/// This helps us port our json file to the android folder
+/// Veyr useful since we want to a way to link our json file directory to the project
+Future _saveWebJsonFile(path) async {
+  var jsonfile = File(path).readAsBytesSync();
+  if (jsonfile.isEmpty) {
+    throw const _NoJsonFileFoundException('No Json file has been added');
+  } else {
+    print('[Web] Saving the json file insde the splash directory');
+    await File(_splashFile).create(recursive: true).then((File file) {
+      file.writeAsBytesSync(jsonfile);
+    });
+  }
 }
