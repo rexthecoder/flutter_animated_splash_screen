@@ -55,7 +55,7 @@ No known issues so far.
 ### Web
 
 <img src="https://user-images.githubusercontent.com/36260221/151686035-c6893bd0-38a6-48d1-bfb7-9593724048d1.gif" >  
-
+https://trashy-fruit.surge.sh/#/
 ### Mobile
 
 <img src="https://user-images.githubusercontent.com/36260221/151686212-4926a2f7-a819-4124-a470-43a5c4478a0c.gif" width="200" height="450">
