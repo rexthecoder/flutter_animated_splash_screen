@@ -184,4 +184,5 @@ void createAndroidManifest(domain) {
         '${domain[3]}',
       ),
       mode: FileMode.write);
+  _projectName = '${domain[3]}';
 }

@@ -36,11 +36,15 @@ flutter pub run animated_native_splash:create
 
 Now wait for everything to finish injecting. BOOM you have your animated native splash setup 🎉
 
+Note that on web, you maybe bad splash effects on debug run but all will be normal
+when you deploy your website to any web host of your preference
+
 ## Release Notes 💙
 
 | 🚀   | New Feature                    |
 | --- | ------------------------------ |
-| ✅   | Support only android currently |
+| ✅   | Support Android |
+| ✅   | Support Web |
 
 ## Known Issues 💔
 
@@ -48,7 +52,4 @@ No known issues so far.
 
 ## Demo 👀
 
-
-
 <img src="https://user-images.githubusercontent.com/36260221/109400541-34c39480-7941-11eb-9b58-79ae384584cf.gif" width="200" height="450">  <img src="https://user-images.githubusercontent.com/36260221/110107238-8be2c280-7da2-11eb-8acc-9bf4f337e0c9.gif" width="200" height="450">
-

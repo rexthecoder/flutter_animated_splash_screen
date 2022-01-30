@@ -92,4 +92,4 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 animated_native_splash:
   # color is the only required parameter.  It sets the background color of your splash screen.
-  jsonFile: assets/splash.json
+  jsonFile: assets/loading.json

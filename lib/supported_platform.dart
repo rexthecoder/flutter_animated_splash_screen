@@ -16,11 +16,11 @@ import 'package:yaml/yaml.dart';
 // Image template
 import 'package:universal_io/io.dart';
 
-
 part 'android.dart';
 part 'constants.dart';
 part 'exceptions.dart';
 part 'templates.dart';
+part 'web.dart';
 
 /// Function that will be called on supported platforms to create the splash screens.
 Future<void> tryCreateSplash() async {
@@ -38,14 +38,13 @@ Future<void> tryRemoveSplash() async {
 Future<void> tryCreateSplashByConfig(Map<String, dynamic> config) async {
   String jsonFile = config['jsonFile'] ?? '';
 
-
   if (!config.containsKey('android') || config['android']) {
     await _createAndroidSplash(
       jsonPath: jsonFile,
     );
+    await _createWebSplash(path: jsonFile);
   }
 }
-
 
 /// Get config from `pubspec.yaml` or `animated_native_splash.yaml`
 Map<String, dynamic> _getConfig() {
@@ -81,8 +80,6 @@ Map<String, dynamic> _getConfig() {
       config[entry.key] = entry.value;
     }
   }
-
-  
 
   return config;
 }

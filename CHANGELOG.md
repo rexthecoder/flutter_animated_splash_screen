@@ -1,8 +1,14 @@
+## 1.3.0
+
+* Updated to support current version of Flutter with
+* Support web
+* Quick Android start time
+
 ## 1.2.4
 
 * Fix a double splash issue
 
-# [1.2.3]
+## [1.2.3]
 
 * Updared dart sdk
 
