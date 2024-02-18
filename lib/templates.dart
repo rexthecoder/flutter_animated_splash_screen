@@ -119,6 +119,7 @@ String _androidStyle = '''
 /// web
 String styleTemplate({
   int fadeOutDuration = 3,
+  String backgroundColor = "#ffffff",
 }) =>
     '''
 .preloader-container {
@@ -133,7 +134,7 @@ String styleTemplate({
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	background-color: #f1f1f2;
+	background-color: $backgroundColor;
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	justify-content: center;
@@ -250,8 +251,21 @@ String indexTemplate({
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>
+      var isInitialized = false
+      var isCompleted = false
       let box = document.querySelector("#preloader");
-      function fadeOut() {
+      const animation = document.querySelector("lottie-player");
+
+      animation.addEventListener("complete", () => {
+        isCompleted = true
+        checkSplashAnimation()
+      });
+      animation.addEventListener("loop", () => {
+        isCompleted = true
+        checkSplashAnimation()
+      });
+
+      function fadeOutSplashAnimation() {
         box.classList.add("visuallyhidden");
         box.addEventListener(
           "transitionend",
@@ -265,8 +279,19 @@ String indexTemplate({
           }
         );
       }
-      function remove() {
+
+      function removeSplashAnimation() {
         box.classList.add("hidden");
+      }
+
+      function checkSplashAnimation() {
+        if(!isCompleted) {
+          return;
+        }
+        if(!isInitialized) {
+          return;
+        }
+        ${webFadeOut ? 'fadeOutSplashAnimation();' : 'removeSplashAnimation();'} 
       }
 
       window.addEventListener('load', function(ev) {
@@ -276,10 +301,11 @@ String indexTemplate({
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
-         ${webFadeOut ? 'fadeOut();' : 'remove();'} 
 
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
+          engineInitializer.initializeEngine().then(async function(appRunner) {
+            await appRunner.runApp();
+            isInitialized = true
+            checkSplashAnimation();
           });
         }
       });

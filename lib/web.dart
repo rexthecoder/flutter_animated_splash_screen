@@ -39,6 +39,7 @@ Future<void> _createStylesheet(
   print('[Web] Creating the style file.');
   stylesheet.writeAsStringSync(styleTemplate(
     fadeOutDuration: config["web"]?["fadeOutDuration"] ?? 3,
+    backgroundColor: config["web"]?["backgroundColor"] ?? "#ffffff",
   ));
 }
 

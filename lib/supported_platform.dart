@@ -39,17 +39,20 @@ Future<void> tryCreateSplashByConfig(Map<String, dynamic> config) async {
   String jsonFile = config['jsonFile'] ?? '';
 
   if (config['android']?["enabled"] ?? true) {
-    return await _createAndroidSplash(
+    await _createAndroidSplash(
       jsonPath: jsonFile,
     );
   }
   if (config['web']?["enabled"] ?? true) {
-    return await _createWebSplash(
+    await _createWebSplash(
       config: config,
       path: jsonFile,
     );
   }
-  stderr.writeln('You have disabled both platforms. Nothing was generated!');
+  if (!(config['android']?["enabled"] ?? true) &&
+      !(config['web']?["enabled"] ?? true)) {
+    stderr.writeln('You have disabled both platforms. Nothing was generated!');
+  }
 }
 
 /// Get config from `pubspec.yaml` or `animated_native_splash.yaml`

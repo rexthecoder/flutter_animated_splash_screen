@@ -100,3 +100,4 @@ animated_native_splash:
     loop: true
     fadeOut: true
     fadeOutDuration: 3
+    backgroundColor: "#ffffff"
