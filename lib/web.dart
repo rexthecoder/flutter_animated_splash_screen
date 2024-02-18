@@ -1,4 +1,4 @@
-part of animated_native_splash_supported_platform;
+part of 'supported_platform.dart';
 
 Future<void> _createWebSplash({String? path}) async {
   if (path!.isNotEmpty) {
@@ -11,7 +11,7 @@ Future<void> _createWebSplash({String? path}) async {
 
 /// Deleting the web file
 ///
-/// This allow us to replace the web file with a modiy version,
+/// This allow us to replace the web file with a modified version,
 /// Thus, a version with lottie added or integrated
 Future<void> _deleteWebFile() async {
   final webFile = File(_webIndex);
@@ -22,7 +22,7 @@ Future<void> _deleteWebFile() async {
 /// Create stylesheet
 ///
 /// This positions the element and allow us to visible hide
-/// when ever necessary
+/// whenever necessary
 Future<void> _createStylesheet() async {
   final stylesheet = File(_webRelativeStyleFile);
   stylesheet.createSync(recursive: true);

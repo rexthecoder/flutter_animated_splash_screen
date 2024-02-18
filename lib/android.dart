@@ -1,4 +1,4 @@
-part of animated_native_splash_supported_platform;
+part of 'supported_platform.dart';
 
 /// Create Android splash screen
 ///

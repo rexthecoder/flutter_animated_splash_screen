@@ -1,7 +1,7 @@
-part of animated_native_splash_supported_platform;
+part of 'supported_platform.dart';
 
-// Android-related templates
-/// Below is genric template we inject to our project folders
+/// Android-related templates
+/// Below is generic template we inject to our project folders
 
 ///[Andriod SplashView.xml]
 const String _androidSplashViewXml = '''
@@ -207,7 +207,9 @@ String indexTemplate({String? projectName}) => '''
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="example" />
     <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png" />
 
