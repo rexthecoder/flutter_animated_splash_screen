@@ -101,3 +101,6 @@ animated_native_splash:
     fadeOut: true
     fadeOutDuration: 3
     backgroundColor: "#ffffff"
+    height: 200
+    width: 200
+

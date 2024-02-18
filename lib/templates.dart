@@ -187,6 +187,8 @@ String indexTemplate({
   String? projectName,
   bool webLoop = true,
   bool webFadeOut = true,
+  int height = 200,
+  int width = 200,
 }) =>
     '''
 <!DOCTYPE html>
@@ -241,7 +243,7 @@ String indexTemplate({
             src="splash/splash.json"
             background="transparent"
             speed="1"
-            style="width: 400px; height: 400px"${webLoop ? '\nloop' : ''}
+            style="width: ${width}px; height: ${height}px"${webLoop ? '\nloop' : ''}
             autoplay
           ></lottie-player>
         </div>

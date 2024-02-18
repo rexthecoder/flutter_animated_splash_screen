@@ -63,6 +63,8 @@ Future<void> _createIndex(
       projectName: _projectName,
       webLoop: config["web"]?["loop"] ?? true,
       webFadeOut: config["web"]?["fadeOut"] ?? true,
+      width: config["web"]?["width"] ?? 200,
+      height: config["web"]?["height"] ?? 200,
     ),
   );
 }
