@@ -13,8 +13,10 @@ import 'unsupported_platform.dart' // Stub implementation
     if (dart.library.io) 'supported_platform.dart'; // dart:io implementation
 
 /// Create splash screens for Android and iOS
-Future<void> createSplash() async {
-  await tryCreateSplash();
+Future<void> createSplash({
+  required String? path,
+}) async {
+  await tryCreateSplash(path: path);
 }
 
 /// Create splash screens for Android and iOS based on a config argument
