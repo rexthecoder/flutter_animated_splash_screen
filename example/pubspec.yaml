@@ -93,3 +93,5 @@ flutter:
 animated_native_splash:
   # color is the only required parameter.  It sets the background color of your splash screen.
   jsonFile: assets/loading.json
+  android: true
+  web: true

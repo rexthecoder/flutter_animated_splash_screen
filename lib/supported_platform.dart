@@ -42,6 +42,8 @@ Future<void> tryCreateSplashByConfig(Map<String, dynamic> config) async {
     await _createAndroidSplash(
       jsonPath: jsonFile,
     );
+  }
+  if (!config.containsKey('web') || config['web']) {
     await _createWebSplash(path: jsonFile);
   }
 }
