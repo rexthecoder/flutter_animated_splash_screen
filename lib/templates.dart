@@ -117,7 +117,10 @@ String _androidStyle = '''
 ''';
 
 /// web
-String _style = '''
+String styleTemplate({
+  int fadeOutDuration = 3,
+}) =>
+    '''
 .preloader-container {
 	left: 0;
 	top: 0;
@@ -138,9 +141,9 @@ String _style = '''
 	-ms-flex-align: center;
 	align-items: center;
 	overflow: hidden;
-	-webkit-transition: all 1s linear;
-	-o-transition: all 1s linear;
-	transition: all 1s linear;
+	-webkit-transition: all ${fadeOutDuration}s linear;
+	-o-transition: all ${fadeOutDuration}s linear;
+	transition: all ${fadeOutDuration}s linear;
 }
 
 .preloader-container .animation {
@@ -179,7 +182,12 @@ String _style = '''
 
 ''';
 
-String indexTemplate({String? projectName}) => '''
+String indexTemplate({
+  String? projectName,
+  bool webLoop = true,
+  bool webFadeOut = true,
+}) =>
+    '''
 <!DOCTYPE html>
 <html>
   <head>
@@ -216,6 +224,13 @@ String indexTemplate({String? projectName}) => '''
     <title>$projectName</title>
     <link rel="stylesheet" href="splash/style.css" />
     <link rel="manifest" href="manifest.json" />
+
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      const serviceWorkerVersion = null;
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
   </head>
   <body>
     <div id="preloader" class="preloader-container">
@@ -225,8 +240,7 @@ String indexTemplate({String? projectName}) => '''
             src="splash/splash.json"
             background="transparent"
             speed="1"
-            style="width: 400px; height: 400px"
-            loop
+            style="width: 400px; height: 400px"${webLoop ? '\nloop' : ''}
             autoplay
           ></lottie-player>
         </div>
@@ -236,18 +250,6 @@ String indexTemplate({String? projectName}) => '''
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>
-      var serviceWorkerVersion = null;
-      var scriptLoaded = false;
-      function loadMainDartJs() {
-        if (scriptLoaded) {
-          return;
-        }
-        scriptLoaded = true;
-        var scriptTag = document.createElement("script");
-        scriptTag.src = "main.dart.js";
-        scriptTag.type = "application/javascript";
-        document.body.append(scriptTag);
-      }
       let box = document.querySelector("#preloader");
       function fadeOut() {
         box.classList.add("visuallyhidden");
@@ -263,58 +265,25 @@ String indexTemplate({String? projectName}) => '''
           }
         );
       }
-
-      if ("serviceWorker" in navigator) {
-        // Service workers are supported. Use them.
-        window.addEventListener("load", function () {
-          // Wait for registration to finish before dropping the <script> tag.
-          // Otherwise, the browser will load the script multiple times,
-          // potentially different versions.
-          var serviceWorkerUrl =
-            "flutter_service_worker.js?v=" + serviceWorkerVersion;
-          navigator.serviceWorker.register(serviceWorkerUrl).then((reg) => {
-            function waitForActivation(serviceWorker) {
-              serviceWorker.addEventListener("statechange", () => {
-                if (serviceWorker.state == "activated") {
-                  console.log("Installed new service worker.");
-                  loadMainDartJs();
-                }
-              });
-            }
-            if (!reg.active && (reg.installing || reg.waiting)) {
-              // No active web worker and we have installed or are installing
-              // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing || reg.waiting);
-            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
-              // When the app updates the serviceWorkerVersion changes, so we
-              // need to ask the service worker to update.
-              console.log("New service worker available.");
-              reg.update();
-              waitForActivation(reg.installing);
-            } else {
-              //fadeOut();
-              // Existing service worker is still good.
-              console.log("Loading app from service worker.");
-              loadMainDartJs();
-            }
-          });
-          setTimeout(fadeOut, 3000);
-          // If service worker doesn't succeed in a reasonable amount of time,
-          // fallback to plaint <script> tag.
-          setTimeout(() => {
-            if (!scriptLoaded) {
-              console.warn(
-                "Failed to load app from service worker. Falling back to plain <script> tag."
-              );
-              loadMainDartJs();
-            }
-          }, 4000);
-        });
-      } else {
-        fadeOut();
-        // Service workers not supported. Just drop the <script> tag.
-        loadMainDartJs();
+      function remove() {
+        box.classList.add("hidden");
       }
+
+      window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+         ${webFadeOut ? 'fadeOut();' : 'remove();'} 
+
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
     </script>
   </body>
 </html>

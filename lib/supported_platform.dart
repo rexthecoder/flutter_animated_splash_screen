@@ -38,14 +38,18 @@ Future<void> tryRemoveSplash() async {
 Future<void> tryCreateSplashByConfig(Map<String, dynamic> config) async {
   String jsonFile = config['jsonFile'] ?? '';
 
-  if (!config.containsKey('android') || config['android']) {
-    await _createAndroidSplash(
+  if (config['android']?["enabled"] ?? true) {
+    return await _createAndroidSplash(
       jsonPath: jsonFile,
     );
   }
-  if (!config.containsKey('web') || config['web']) {
-    await _createWebSplash(path: jsonFile);
+  if (config['web']?["enabled"] ?? true) {
+    return await _createWebSplash(
+      config: config,
+      path: jsonFile,
+    );
   }
+  stderr.writeln('You have disabled both platforms. Nothing was generated!');
 }
 
 /// Get config from `pubspec.yaml` or `animated_native_splash.yaml`

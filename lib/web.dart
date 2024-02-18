@@ -1,11 +1,19 @@
 part of 'supported_platform.dart';
 
-Future<void> _createWebSplash({String? path}) async {
+Future<void> _createWebSplash({
+  required Map<String, dynamic> config,
+  String? path,
+}) async {
   if (path!.isNotEmpty) {
     await _deleteWebFile();
-    await _createStylesheet();
+    await _createStylesheet(
+      config,
+    );
     await _saveWebJsonFile(path);
-    await _createIndex(path);
+    await _createIndex(
+      config,
+      path,
+    );
   }
 }
 
@@ -23,18 +31,25 @@ Future<void> _deleteWebFile() async {
 ///
 /// This positions the element and allow us to visible hide
 /// whenever necessary
-Future<void> _createStylesheet() async {
+Future<void> _createStylesheet(
+  Map<String, dynamic> config,
+) async {
   final stylesheet = File(_webRelativeStyleFile);
   stylesheet.createSync(recursive: true);
   print('[Web] Creating the style file.');
-  stylesheet.writeAsStringSync(_style);
+  stylesheet.writeAsStringSync(styleTemplate(
+    fadeOutDuration: config["web"]?["fadeOutDuration"] ?? 3,
+  ));
 }
 
 /// Create index file
 ///
 /// Replace the old index with the new template
 /// This contains the lottie player already set up
-Future<void> _createIndex(path) async {
+Future<void> _createIndex(
+  Map<String, dynamic> config,
+  path,
+) async {
   var jsonfile = File(path).readAsBytesSync();
   if (jsonfile.isEmpty) {
     throw const _NoJsonFileFoundException('No Json file has been added');
@@ -45,6 +60,8 @@ Future<void> _createIndex(path) async {
   index.writeAsStringSync(
     indexTemplate(
       projectName: _projectName,
+      webLoop: config["web"]?["loop"] ?? true,
+      webFadeOut: config["web"]?["fadeOut"] ?? true,
     ),
   );
 }
