@@ -10,7 +10,7 @@
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	background-color: #f1f1f2;
+	background-color: #ffffff;
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	justify-content: center;
@@ -18,9 +18,9 @@
 	-ms-flex-align: center;
 	align-items: center;
 	overflow: hidden;
-	-webkit-transition: all 1s linear;
-	-o-transition: all 1s linear;
-	transition: all 1s linear;
+	-webkit-transition: all 3s linear;
+	-o-transition: all 3s linear;
+	transition: all 3s linear;
 }
 
 .preloader-container .animation {

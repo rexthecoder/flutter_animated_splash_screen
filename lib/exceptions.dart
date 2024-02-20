@@ -1,4 +1,4 @@
-part of animated_native_splash_supported_platform;
+part of 'supported_platform.dart';
 
 ///Expection need to through to our users, For better users experinces
 class _NoConfigFoundException implements Exception {
@@ -49,4 +49,3 @@ class _InvalidNativeFile implements Exception {
         '$message';
   }
 }
-

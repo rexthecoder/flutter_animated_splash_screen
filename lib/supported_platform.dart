@@ -23,8 +23,10 @@ part 'templates.dart';
 part 'web.dart';
 
 /// Function that will be called on supported platforms to create the splash screens.
-Future<void> tryCreateSplash() async {
-  var config = _getConfig();
+Future<void> tryCreateSplash({
+  required String? path,
+}) async {
+  var config = _getConfig(path: path);
   await tryCreateSplashByConfig(config);
 }
 
@@ -38,21 +40,44 @@ Future<void> tryRemoveSplash() async {
 Future<void> tryCreateSplashByConfig(Map<String, dynamic> config) async {
   String jsonFile = config['jsonFile'] ?? '';
 
-  if (!config.containsKey('android') || config['android']) {
+  if (config['android']?["enabled"] ?? true) {
     await _createAndroidSplash(
       jsonPath: jsonFile,
     );
-    await _createWebSplash(path: jsonFile);
+  }
+  if (config['web']?["enabled"] ?? true) {
+    await _createWebSplash(
+      config: config,
+      path: jsonFile,
+    );
+  }
+  if (!(config['android']?["enabled"] ?? true) &&
+      !(config['web']?["enabled"] ?? true)) {
+    stderr.writeln('You have disabled both platforms. Nothing was generated!');
   }
 }
 
 /// Get config from `pubspec.yaml` or `animated_native_splash.yaml`
-Map<String, dynamic> _getConfig() {
-  // if `animated_native_splash.yaml` exists use it as config file, otherwise use `pubspec.yaml`
-  var filePath = (FileSystemEntity.typeSync('animated_native_splash.yaml') !=
-          FileSystemEntityType.notFound)
-      ? 'animated_native_splash.yaml'
-      : 'pubspec.yaml';
+Map<String, dynamic> _getConfig({
+  required String? path,
+}) {
+  String filePath;
+
+  // if config file was provided via --path argument, check if the file exists
+  if (path != null) {
+    if (File(path).existsSync()) {
+      filePath = path;
+    } else {
+      print('The config file `$path` was not found.');
+      exit(1);
+    }
+  } else {
+    // if `animated_native_splash.yaml` exists use it as config file, otherwise use `pubspec.yaml`
+    filePath = (FileSystemEntity.typeSync('animated_native_splash.yaml') !=
+            FileSystemEntityType.notFound)
+        ? 'animated_native_splash.yaml'
+        : 'pubspec.yaml';
+  }
 
   final file = File(filePath);
   final yamlString = file.readAsStringSync();
