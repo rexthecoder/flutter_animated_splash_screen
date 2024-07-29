@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+    <base href="$FLUTTER_BASE_HREF" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="A new Flutter project." />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="example" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <title>example</title>
+    <link rel="stylesheet" href="splash/style.css" />
+    <link rel="manifest" href="manifest.json" />
+
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      const serviceWorkerVersion = null;
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+  </head>
+  <body>
+    <div id="preloader" class="preloader-container">
+      <div class="animation">
+        <div class="player">
+          <lottie-player
+            src="splash/splash.json"
+            background="transparent"
+            speed="1"
+            style="width: 200px; height: 200px"
+loop
+            autoplay
+          ></lottie-player>
+        </div>
+      </div>
+    </div>
+    <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+    <script>
+      var isInitialized = false
+      var isCompleted = false
+      let box = document.querySelector("#preloader");
+      const animation = document.querySelector("lottie-player");
+
+      animation.addEventListener("complete", () => {
+        isCompleted = true
+        checkSplashAnimation()
+      });
+      animation.addEventListener("loop", () => {
+        isCompleted = true
+        checkSplashAnimation()
+      });
+
+      function fadeOutSplashAnimation() {
+        box.classList.add("visuallyhidden");
+        box.addEventListener(
+          "transitionend",
+          function (e) {
+            box.classList.add("hidden");
+          },
+          {
+            capture: false,
+            once: true,
+            passive: false,
+          }
+        );
+      }
+
+      function removeSplashAnimation() {
+        box.classList.add("hidden");
+      }
+
+      function checkSplashAnimation() {
+        if(!isCompleted) {
+          return;
+        }
+        if(!isInitialized) {
+          return;
+        }
+        fadeOutSplashAnimation(); 
+      }
+
+      window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+
+          engineInitializer.initializeEngine().then(async function(appRunner) {
+            await appRunner.runApp();
+            isInitialized = true
+            checkSplashAnimation();
+          });
+        }
+      });
+    });
+    </script>
+  </body>
+</html>
+
